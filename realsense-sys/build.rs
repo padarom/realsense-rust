@@ -21,7 +21,7 @@ fn main() -> Result<()> {
     let library = probe_library("realsense2")?;
 
     // Verify version
-    let (include_dir, version) = library
+    let (mut include_dir, version) = library
         .include_paths
         .iter()
         .collect::<HashSet<_>>()
@@ -92,6 +92,11 @@ fn main() -> Result<()> {
             .expect("Couldn't write bindings!");
     }
 
+    #[cfg(target_env="msvc")]
+    {
+        include_dir.pop();
+    }
+
     // compile and link rsutil_delegate.h statically
     cc::Build::new()
         .include(&include_dir)
@@ -156,6 +161,7 @@ where
     }
 }
 
+#[cfg(not(target_env="msvc"))]
 fn probe_library(pkg_name: &str) -> Result<Library> {
     let package = pkg_config::probe_library(pkg_name)?;
     let lib = Library {
@@ -167,6 +173,22 @@ fn probe_library(pkg_name: &str) -> Result<Library> {
         version: package.version,
         prefix: PathBuf::from(pkg_config::get_variable(pkg_name, "prefix")?),
         libdir: PathBuf::from(pkg_config::get_variable(pkg_name, "libdir")?),
+    };
+    Ok(lib)
+}
+
+#[cfg(target_env="msvc")]
+fn probe_library(pkg_name: &str) -> Result<Library> {
+    let package = vcpkg::find_package(pkg_name)?;
+    let lib = Library {
+        pkg_name: pkg_name.to_owned(),
+        libs: Vec::new(),
+        link_paths: package.link_paths,
+        framework_paths: Vec::new(),
+        include_paths: package.include_paths,
+        version: "2.38.1".to_string(),
+        prefix: PathBuf::new(),
+        libdir: PathBuf::new(),
     };
     Ok(lib)
 }
