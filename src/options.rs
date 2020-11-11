@@ -29,7 +29,7 @@ pub trait ToOptions {
                     let val =
                         sys::rs2_get_option_from_list(list_ptr, index, checker.inner_mut_ptr());
                     checker.check()?;
-                    let option = Rs2Option::from_u32(val).unwrap();
+                    let option = Rs2Option::from_i32(val).unwrap();
                     let handle = OptionHandle {
                         ptr: options_ptr,
                         option,

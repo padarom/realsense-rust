@@ -5,6 +5,7 @@ use std::{
     fs::File,
     io::{prelude::*, BufReader},
     path::{Path, PathBuf},
+    env,
 };
 
 lazy_static! {
@@ -16,6 +17,8 @@ fn main() -> Result<()> {
     if cfg!(feature = "doc-only") {
         return Ok(());
     }
+
+    env::set_var("VCPKGRS_DYNAMIC", "1");
 
     // Probe libary
     let library = probe_library("realsense2")?;
@@ -53,6 +56,7 @@ fn main() -> Result<()> {
         let bindings = bindgen::Builder::default()
             .clang_arg("-fno-inline-functions")
             .header(include_dir.join("rs.h").to_str().unwrap())
+            .clang_arg(format!("-I{}", include_dir.parent().unwrap().to_str().unwrap()))
             .header(
                 include_dir
                     .join("h")

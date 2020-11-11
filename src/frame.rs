@@ -70,7 +70,7 @@ where
             checker.check()?;
             val
         };
-        let domain = TimestampDomain::from_u32(val).unwrap();
+        let domain = TimestampDomain::from_i32(val).unwrap();
         Ok(domain)
     }
 

@@ -72,8 +72,8 @@ where
             checker.check()?;
 
             let data = StreamProfileData {
-                stream: StreamKind::from_u32(stream.assume_init()).unwrap(),
-                format: Format::from_u32(format.assume_init()).unwrap(),
+                stream: StreamKind::from_i32(stream.assume_init()).unwrap(),
+                format: Format::from_i32(format.assume_init()).unwrap(),
                 index: index.assume_init() as usize,
                 unique_id: unique_id.assume_init(),
                 framerate: framerate.assume_init(),

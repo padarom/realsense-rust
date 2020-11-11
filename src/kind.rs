@@ -3,7 +3,7 @@
 use crate::common::*;
 
 /// The enumeration of options.
-#[repr(u32)]
+#[repr(i32)]
 #[derive(FromPrimitive, Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Rs2Option {
     BacklightCompensation = sys::rs2_option_RS2_OPTION_BACKLIGHT_COMPENSATION,
@@ -92,7 +92,7 @@ impl ToString for Rs2Option {
 }
 
 /// The enumeration of timestamp domains.
-#[repr(u32)]
+#[repr(i32)]
 #[derive(FromPrimitive, Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum TimestampDomain {
     HardwareClock = sys::rs2_timestamp_domain_RS2_TIMESTAMP_DOMAIN_HARDWARE_CLOCK,
@@ -121,7 +121,7 @@ impl ToString for TimestampDomain {
 }
 
 /// The enumeration of metadata kinds of a frame.
-#[repr(u32)]
+#[repr(i32)]
 #[derive(FromPrimitive, Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum FrameMetaDataValue {
     FrameCounter = sys::rs2_frame_metadata_value_RS2_FRAME_METADATA_FRAME_COUNTER,
@@ -160,7 +160,7 @@ pub enum FrameMetaDataValue {
 }
 
 /// The enumeration of extensions.
-#[repr(u32)]
+#[repr(i32)]
 #[derive(FromPrimitive, Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Extension {
     // sensor
@@ -218,7 +218,7 @@ pub enum Extension {
 }
 
 /// The enumeration of sensor information.
-#[repr(u32)]
+#[repr(i32)]
 #[derive(FromPrimitive, Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum CameraInfo {
     Name = sys::rs2_camera_info_RS2_CAMERA_INFO_NAME,
@@ -238,7 +238,7 @@ pub enum CameraInfo {
 }
 
 /// The enumeration of all categories of stream.
-#[repr(u32)]
+#[repr(i32)]
 #[derive(FromPrimitive, Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum StreamKind {
     Any = sys::rs2_stream_RS2_STREAM_ANY,
@@ -255,7 +255,7 @@ pub enum StreamKind {
 }
 
 /// The enumeration of frame data format.
-#[repr(u32)]
+#[repr(i32)]
 #[derive(FromPrimitive, Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Format {
     Any = sys::rs2_format_RS2_FORMAT_ANY,
