@@ -72,7 +72,7 @@ impl Context {
     where
         P: AsRef<Path>,
     {
-        let cstring = CString::new(file.as_ref().as_os_str().as_bytes()).unwrap();
+        let cstring = CString::new(file.as_ref().to_str().unwrap().as_bytes()).unwrap();
         unsafe {
             let mut checker = ErrorChecker::new();
             sys::rs2_context_add_device(
